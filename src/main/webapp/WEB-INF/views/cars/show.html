@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        .links-container {
+            display: inline-block;
+            margin-right: 80px;
+        }
+    </style>
+</head>
+<body>
+
+<p style="background:gray; color:white; border-radius: 10px 10px 10px 10px; font-size:27px;">Rent Car Admin</p>
+
+<div class="links-container">
+    <a href="/people/index/0" style="font-size: 32px;">Clients</a>
+</div>
+<div class="links-container">
+    <a href="/cars/index/0" style="font-size: 32px;">Cars</a>
+</div><br><br>
+
+<div class="links-container">
+    <a href="javascript:history.back()" style="font-size: 22px;">Back</a>
+</div>
+
+<h3>Info:</h3>
+<p th:text="'License plate: ' + ${car.getLicensePlate()}"></p>
+<p th:text="'Mark: ' + ${car.getMark()}"></p>
+<p th:text="'Model: ' + ${car.getModel()}"></p>
+<p th:text="'Color: ' + ${car.getColor()}"></p>
+<p th:text="'Type: ' + ${car.getType()}"></p>
+<p th:text="'Year of manufacture: ' + ${car.getYearOfManufacture()} + ' year'"></p>
+<p th:text="'Car mileage: ' + ${car.getCarMileage()} + ' km.'"></p>
+<p th:text="'Price: ' + ${car.getPrice()} + '$'"></p><hr>
+
+<form th:method="PATCH" th:action="@{/cars/assign/{id}(id=${car.getId()})}" th:object="${car}" th:if="${car.getTenant() == null}">
+    <h3 style="font-size: 32px; text-decoration: underline; text-decoration-color: green;">Car is free</h3>
+    <label for="person">Clients: </label>
+    <select th:object="${person}"
+            th:field="*{id}"
+            id="person">
+
+        <option th:each="person : ${people}"
+                th:value="${person.getId()}"
+                th:text="${person.getFirstName()} + ' ' + ${person.getLastName()} + ', ' + ${person.getPassport()}">
+        </option>
+
+    </select>
+    <br><input type="submit" value="Ok"/>
+</form>
+
+<form th:method="PATCH" th:action="@{/cars/release/{id}(id=${car.getId()})}" th:if="${car.getTenant() != null}">
+    <h3 style="font-size: 32px; text-decoration: underline; text-decoration-color: red;">Currently on loan</h3>
+    <h3 th:text="'Car tenant: ' + ${tenant.getFirstName()} + ' ' + ${tenant.getLastName()} + ', ' + ${tenant.getPassport()}"></h3>
+    <br><input type="submit" value="Free car"/>
+</form><br><hr><br>
+
+<form th:method="GET" th:action="@{/cars/{id}/edit(id=${car.getId()})}">
+    <input type="submit" value="EDIT">
+</form><br>
+
+<form th:method="DELETE" th:action="@{/cars/{id}(id=${car.getId()})}">
+    <input type="submit" value="DELETE">
+</form>
+
+</body>
+</html>

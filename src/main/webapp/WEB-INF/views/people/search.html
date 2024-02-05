@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Result</title>
+  <style>
+    a {
+      text-decoration: none;
+    }
+    .links-container {
+      display: inline-block;
+      margin-right: 80px;
+    }
+  </style>
+</head>
+<body>
+
+<p style="background:gray; color:white; border-radius: 10px 10px 10px 10px; font-size:27px;">Rent Car Admin</p>
+
+<div class="links-container">
+  <a href="/people/index/0" style="font-size: 32px;">Clients</a>
+</div>
+<div class="links-container">
+  <a href="/cars/index/0" style="font-size: 32px;">Cars</a>
+</div><br><br>
+
+<div class="links-container">
+  <a href="javascript:history.back()" style="font-size: 22px;">Back</a>
+</div><br><br>
+
+<div th:each="person : ${findingPeople}">
+  <a th:href="@{/people/{id}(id=${person.getId()})}"
+     th:text="${person.getLastName() + ' ' + person.getFirstName() + ', ' + person.getPassport()}">
+    person
+  </a>
+  <hr/>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${person.getFirstName()} + ' ' + ${person.getLastName()}"></title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+    <style>
+        .links-container {
+            display: inline-block;
+            margin-right: 80px; /* Добавьте отступ между ссылками по вашему желанию */
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#birthdate').datepicker({
+                format: 'dd/MM/yyyy', // Формат даты
+                autoHide: true // Закрывать календарь после выбора даты
+            });
+        });
+    </script>
+</head>
+
+<body>
+<p style="background:gray; color:white; border-radius: 10px 10px 10px 10px; font-size:27px;">Rent Car Admin</p>
+
+<div class="links-container">
+    <a href="/people/index/0" style="font-size: 32px;">Clients</a>
+</div>
+<div class="links-container">
+    <a href="/cars/index/0" style="font-size: 32px;">Cars</a>
+</div>
+
+<h3>Info</h3>
+
+<form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+
+    <label for="firstName">First name</label>
+    <input type="text" th:field="*{firstName}" id="firstName"/>
+    <div style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</div>
+
+    <br><br>
+
+    <label for="lastName">Last name</label>
+    <input type="text" th:field="*{lastName}" id="lastName"/>
+    <div style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</div>
+
+    <br><br>
+
+    <label for="passport">Passport</label>
+    <input type="text" th:field="*{passport}" id="passport"/>
+    <div style="color: red" th:if="${#fields.hasErrors('passport')}" th:errors="*{passport}">Error</div>
+
+    <br><br>
+
+    <label for="drivingLicense">Driving license</label>
+    <input type="text" th:field="*{drivingLicense}" id="drivingLicense"/>
+    <div style="color: red" th:if="${#fields.hasErrors('drivingLicense')}" th:errors="*{drivingLicense}">Error</div>
+
+    <br><br>
+
+    <label for="birthdate">Date of birth</label>
+    <input type="text" th:field="*{dateOfBirth}" id="birthdate">
+
+    <br><br>
+
+    <label for="sex">Sex</label>
+    <select th:object="${person}" th:field="*{sex}" id="sex">
+        <option value="MALE">MALE</option>
+        <option value="FEMALE">FEMALE</option>
+    </select>
+
+    <br><br><hr><br>
+
+    <input type="submit" value="SAVE"><br><br>
+
+</form>
+
+<form th:method="GET" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+    <input type="submit" value="BACK"/>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        .links-container {
+            display: inline-block;
+            margin-right: 80px;
+        }
+    </style>
+</head>
+<body>
+
+<p style="background:gray; color:white; border-radius: 10px 10px 10px 10px; font-size:27px;">Rent Car Admin</p>
+
+<div class="links-container">
+    <a href="/people/index/0" style="font-size: 32px;">Clients</a>
+</div>
+<div class="links-container">
+    <p style="font-size: 32px; text-decoration: underline; text-decoration-color: orange;">Cars</p>
+</div>
+<br>
+
+
+
+
+
+<form th:method="GET" th:action="@{/cars/find}">
+    <label for="query">License plate: </label>
+    <input type="text" id="query" name="query"/>
+    <input type="submit" value="Search"/>
+</form><br>
+
+
+
+
+
+<div class="links-container" th:if="${!pageCars.hasPrevious()}">
+    <a th:text="'<<<Previous'" style="font-weight: bold;"></a>
+</div>
+
+<div class="links-container" th:if="${pageCars.hasPrevious()}">
+    <a th:href="@{/cars/index/{page}(page=${pageNumber - 1})}" style="font-weight: bold;" th:text="'<<<Previous'"></a>
+</div>
+
+<div class="links-container" th:if="${pageCars.hasNext()}">
+    <a th:href="@{/cars/index/{page}(page=${pageNumber + 1})}" th:text="'Next>>>'" style="font-weight: bold;"></a>
+</div>
+
+<div class="links-container" th:if="${pageCars.isLast()}">
+    <a th:text="'Next>>>'" style="font-weight: bold;"></a>
+</div>
+
+<br><br>
+
+<div th:each="car : ${pageCars}">
+    <a th:href="@{/cars/{id}(id=${car.getId()})}"
+       th:text="${car.getMark() + ' ' + car.getModel() + ', ' + car.getLicensePlate() + ', ' + car.getYearOfManufacture()}">
+        car
+    </a>
+    <hr/>
+</div>
+
+<form th:method="GET" th:action="@{/cars/new}">
+    <input type="submit" value="Add new car">
+</form>
+
+</body>
+</html>

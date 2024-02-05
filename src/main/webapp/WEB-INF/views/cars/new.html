@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New car</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+    <style>
+        .links-container {
+            display: inline-block;
+            margin-right: 80px;
+        }
+    </style>
+</head>
+<body>
+
+<p style="background:gray; color:white; border-radius: 10px 10px 10px 10px; font-size:27px;">Rent Car Admin</p>
+
+<div class="links-container">
+    <a href="/people/index/0" style="font-size: 32px;">Clients</a>
+</div>
+<div class="links-container">
+    <a href="/cars/index/0" style="font-size: 32px;">Cars</a>
+</div>
+
+<h3>Add new car</h3>
+
+<form th:method="POST" th:action="@{/cars/add}" th:object="${car}">
+
+    <label for="licensePlate">License plate</label>
+    <input type="text" th:field="*{licensePlate}" id="licensePlate"/>
+    <div style="color: red" th:if="${#fields.hasErrors('licensePlate')}" th:errors="*{licensePlate}">Error</div>
+
+    <br><br>
+
+    <label for="price">Prise</label>
+    <input type="text" th:field="*{price}" id="price"/>
+    <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Error</div>
+
+    <br><br>
+
+    <label for="mark">Mark</label>
+    <input type="text" th:field="*{mark}" id="mark"/>
+    <div style="color: red" th:if="${#fields.hasErrors('mark')}" th:errors="*{mark}">Error</div>
+
+    <br><br>
+
+    <label for="model">Model</label>
+    <input type="text" th:field="*{model}" id="model"/>
+    <div style="color: red" th:if="${#fields.hasErrors('model')}" th:errors="*{model}">Error</div>
+
+    <br><br>
+
+    <label for="type">Type</label>
+    <select th:object="${car}" th:field="*{type}" id="type">
+        <option value="SEDAN">SEDAN</option>
+        <option value="HATCHBACK">HATCHBACK</option>
+        <option value="MINIBUS">MINIBUS</option>
+        <option value="SUV">SUV</option>
+        <option value="TRUCK">TRUCK</option>
+    </select>
+
+    <br><br>
+
+    <label for="color">Color</label>
+    <select th:object="${car}" th:field="*{color}" id="color">
+        <option value="RED">RED</option>
+        <option value="GREEN">GREEN</option>
+        <option value="BLUE">BLUE</option>
+        <option value="YELLOW">YELLOW</option>
+        <option value="BLACK">BLACK</option>
+        <option value="WHITE">WHITE</option>
+        <option value="SILVER">SILVER</option>
+        <option value="GRAY">GRAY</option>
+        <option value="BROWN">BROWN</option>
+        <option value="ORANGE">ORANGE</option>
+        <option value="PURPLE">PURPLE</option>
+        <option value="PINK">PINK</option>
+        <option value="GOLD">GOLD</option>
+    </select>
+
+    <br><br>
+
+    <label for="yearOfManufacture">Year of manufacture</label>
+    <input type="text" th:field="*{yearOfManufacture}" id="yearOfManufacture"/>
+    <div style="color: red" th:if="${#fields.hasErrors('yearOfManufacture')}" th:errors="*{yearOfManufacture}">Error</div>
+
+    <br><br>
+
+    <label for="carMileage">Car mileage</label>
+    <input type="text" th:field="*{carMileage}" id="carMileage"/>
+    <div style="color: red" th:if="${#fields.hasErrors('carMileage')}" th:errors="*{carMileage}">Error</div>
+
+    <br><br><hr><br>
+
+    <input type="submit" value="Create"><br><br>
+
+</form>
+
+<form th:method="GET" th:action="@{/cars/index/0}" th:object="${car}">
+    <input type="submit" value="Back"/>
+</form>
+
+</body>
+</html>
